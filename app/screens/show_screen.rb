@@ -18,8 +18,15 @@ class ShowScreen < PM::GroupedTableScreen
         hud.showInView(app.screen.view)
         # https://api.meteostat.net/
         AFMotion::JSON.get("https://api.meteostat.net/v1/stations/nearby?lat=#{@record.lat}&lon=#{@record.lon}&limit=1&key=#{NSUserDefaults.standardUserDefaults['meteostat_key']}") do |result|
-           $cache["#{@record.lat.round(1)}-#{@record.lon.round(1)}"] = result.object['data'][0]['id']
-           hud.dismiss
+          if result.success?
+            $cache["#{@record.lat.round(1)}-#{@record.lon.round(1)}"] = result.object['data'][0]['id']
+            hud.dismiss
+          elsif result.failure?
+            hud.dismiss
+            app.alert(result.error.localizedDescription)
+          else
+            hud.dismiss
+          end
         end
       end
     end

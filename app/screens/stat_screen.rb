@@ -5,6 +5,14 @@ class StatScreen < PM::GroupedTableScreen
     self.tabBarItem = UITabBarItem.alloc.initWithTitle(I18n.t("Statistics"), image:UIImage.imageNamed('pie-chart-24.png'), tag:4)
   end
   
+  def on_load
+    NSNotificationCenter.defaultCenter.addObserver(self, selector: "fishingChanged:", name: "reloadFishing", object: nil)
+  end 
+  
+  def fishingChanged(notification)
+    update_table_data
+  end
+  
   def table_data
     [
       { 
@@ -23,7 +31,7 @@ class StatScreen < PM::GroupedTableScreen
        cells: Fishing.where(:isFavorite).eq(true).sort_by(:fishingDate, order: :descending).map do |record|
          {
            properties: {
-             ftitle: "#{record.fish}, #{record.fishWeight.round(2)}кг",
+             ftitle: "#{record.fish}, #{record.fishWeight.round(2)} кг",
              fsubtitle: "#{record.place}, #{record.region}"
            },
            image: { image: record.cropped_cover, radius: 10 },

@@ -421,6 +421,7 @@ class EditScreen < PM::XLFormScreen
       )
     end
     cdq.save
+    NSNotificationCenter.defaultCenter.postNotificationName("reloadFishing", object: nil)
     @record = nil
     close
   end
