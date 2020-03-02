@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="0003 moon" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12D78" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+  <entity name="Fishing" syncable="YES" representedClassName="Fishing" codeGenerationType="class">
+    <attribute optional="YES" syncable="YES" attributeType="Integer 32" name="id" defaultValueString="0"/>
+    <attribute optional="NO" syncable="YES" attributeType="Date" name="fishingDate"/>
+    <attribute optional="NO" syncable="YES" attributeType="Float" name="lat" defaultValueString="0.0"/>
+    <attribute optional="NO" syncable="YES" attributeType="Float" name="lon" defaultValueString="0.0"/>
+    <attribute optional="NO" syncable="YES" attributeType="Integer 16" name="duration" defaultValueString="0"/>
+    <attribute optional="YES" syncable="YES" attributeType="Boolean" name="isFavorite" defaultValueString="NO"/>
+    <attribute optional="NO" syncable="YES" attributeType="String" name="place"/>
+    <attribute optional="NO" syncable="YES" attributeType="String" name="region"/>
+    <attribute optional="NO" syncable="YES" attributeType="String" name="fish"/>
+    <attribute optional="YES" syncable="YES" attributeType="String" name="notes"/>
+    <attribute optional="NO" syncable="YES" attributeType="Integer 16" name="fishAmount" defaultValueString="0"/>
+    <attribute optional="NO" syncable="YES" attributeType="String" name="bait"/>
+    <attribute optional="NO" syncable="YES" attributeType="Float" name="fishWeight" defaultValueString="0.0"/>
+    <attribute optional="NO" syncable="YES" attributeType="Integer 16" name="temperature" defaultValueString="0"/>
+    <attribute optional="NO" syncable="YES" attributeType="Integer 16" name="weather" defaultValueString="0"/>
+    <attribute optional="YES" syncable="YES" attributeType="Integer 32" name="pressure" defaultValueString="0"/>
+    <attribute optional="YES" syncable="YES" attributeType="Integer 32" name="windDirection" defaultValueString="0"/>
+    <attribute optional="YES" syncable="YES" attributeType="Decimal" name="windSpeed" defaultValueString="0.0"/>
+    <attribute optional="YES" syncable="YES" attributeType="Integer 16" name="moonPhase" defaultValueString="0"/>
+    <attribute optional="YES" syncable="YES" attributeType="Binary" name="cover"/>
+    <attribute optional="YES" syncable="YES" attributeType="Binary" name="images"/>
+  </entity>
+</model>

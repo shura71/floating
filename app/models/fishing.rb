@@ -2,18 +2,18 @@ class Fishing < CDQManagedObject
   scope :sort_date, sort_by(:fishingDate, order: :descending)
   
   MONTH_NAMES = [
-    "янв",
-    "фев",
-    "мар",
-    "апр",
-    "май",
-    "июн",
-    "июл",
-    "авг",
-    "сен",
-    "окт",
-    "ноя",
-    "дек"
+    I18n.t("jan"),
+    I18n.t("feb"),
+    I18n.t("mar"),
+    I18n.t("apr"),
+    I18n.t("may"),
+    I18n.t("jun"),
+    I18n.t("jul"),
+    I18n.t("aug"),
+    I18n.t("sep"),
+    I18n.t("oct"),
+    I18n.t("nov"),
+    I18n.t("dec")
   ]
   
   def self.import_from_sqlite3
@@ -57,6 +57,7 @@ class Fishing < CDQManagedObject
   
   def self.import_from_sqlite
     path = "float.sqlite".document_path
+    m = Moonphase::Moon.new
     db = FMDatabase.databaseWithPath(path)
     db.open
     results = db.executeQuery("SELECT * FROM ZNOTE")
@@ -77,6 +78,7 @@ class Fishing < CDQManagedObject
         bait: results.stringForColumn("ZULOVBAIT"),
         fishWeight: results.stringForColumn("ZULOVWEIGHT").sub(',', ".").to_f, 
         temperature: results.stringForColumn("ZTEMPERATURE").to_i - 50, 
+        moonPhase: m.getphase(time),
         weather: results.stringForColumn("ZWEATHER").to_i,
         cover: results.dataForColumn("ZCOVERIMAGE"),
         images: results.dataForColumn("ZIMAGESARRAY")

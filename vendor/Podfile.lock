@@ -34,6 +34,7 @@ PODS:
   - SDWebImage/Core (5.5.2)
   - STPopup (1.8.7)
   - XLForm (3.1.1)
+  - YTPieChart (0.0.1)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5.0)
@@ -46,6 +47,7 @@ DEPENDENCIES:
   - SDWebImage
   - STPopup
   - XLForm (= 3.1.1)
+  - YTPieChart
 
 SPEC REPOS:
   trunk:
@@ -59,6 +61,7 @@ SPEC REPOS:
     - SDWebImage
     - STPopup
     - XLForm
+    - YTPieChart
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
@@ -71,7 +74,8 @@ SPEC CHECKSUMS:
   SDWebImage: 4d5c027c935438f341ed33dbac53ff9f479922ca
   STPopup: a9045557bc48a0df51fbb7bf0544447c5fe84d34
   XLForm: c9ee7e0f859341279bfd894f9589a9d25c23e4df
+  YTPieChart: 4b1b03a0398a7ab5091e1b2b7e9958e88b33a90a
 
-PODFILE CHECKSUM: a146eb97bacc5cf3e3ef1abf1740b313f2559d27
+PODFILE CHECKSUM: cde5dc53c13220b2142bb74ffc761b51bd9a4fcf
 
 COCOAPODS: 1.8.0

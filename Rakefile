@@ -28,7 +28,7 @@ Motion::Project::App.setup do |app|
   app.identifier = 'placesevents.info.Poplavok'
 
   # version for your app
-  app.version = '0.1'
+  app.version = '0.2'
 
   # ===========================================================================================
   # 3. Set your deployment target (it's recommended that you at least target 10.0 and above).
@@ -72,6 +72,7 @@ Motion::Project::App.setup do |app|
     pod 'FSCalendar'
     pod 'ImagePlayerView'
     pod 'FMDB'
+    pod 'YTPieChart'
   end
 
   # ===========================================================================================
@@ -92,7 +93,7 @@ Motion::Project::App.setup do |app|
   #
   #    Download the profile and set the path to the download location below.
   # ===========================================================================================
-  app.provisioning_profile = '/Users/shura/Library/MobileDevice/Provisioning Profiles/c2efc0ed-a702-42c8-9528-22f7bfe148b4.mobileprovision'
+  app.provisioning_profile = '/Users/shura/Library/MobileDevice/Provisioning Profiles/2625fdef-5c06-496e-b806-5c238a22a1a7.mobileprovision'
 
   # ===========================================================================================
   # 8. Similar to Step 7. Production, create a production certificate at:

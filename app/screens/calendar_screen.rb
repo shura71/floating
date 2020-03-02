@@ -36,6 +36,7 @@ class CalendarScreen < PM::Screen
       @calendar.dataSource = self
       @calendar.delegate = self
       @calendar.backgroundColor = UIColor.whiteColor
+      @calendar.firstWeekday = 2
       @calendar.appearance.headerTitleColor = UIColor.blackColor
       @calendar.appearance.weekdayTextColor = UIColor.blackColor
       @calendar.appearance.todayColor = UIColor.blackColor
@@ -105,7 +106,7 @@ class CalendarScreen < PM::Screen
      44.0
   end
    
-  def tableView(tableView, didSelectRowAtIndexPath:indexPath)     
+  def tableView(tableView, didSelectRowAtIndexPath:indexPath)
      fishing = @fishings[indexPath.row]
      
      controller = BottomSheetController.new

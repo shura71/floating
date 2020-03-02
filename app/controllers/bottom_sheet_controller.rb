@@ -3,7 +3,7 @@ class BottomSheetController < UIViewController
     self.navigationItem.rightBarButtonItem = UIBarButtonItem.alloc.initWithImage(UIImage.imageNamed('more-22.png'), style: UIBarButtonItemStyleDone, target: self, action: :record_show)
     
     fishing = @fishing
-    weather = ['Ясно','Облачно','Пасмурно','Дождь','Снег','Tуман','Метель','Ветер']
+    weather = Weather::CONDITIONS
     windowRect = app.screen.view.window.frame
     
     @slides = []

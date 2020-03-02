@@ -22,6 +22,12 @@ class StatScreen < PM::GroupedTableScreen
          { properties: { ftitle: 'КОЛИЧЕСТВО ХВОСТОВ, ШТ', fsubtitle: Fishing.sum(:fishAmount).to_s }, cell_class: FishingShowCell },
          { properties: { ftitle: 'ОБЩИЙ ВЕС, КГ', fsubtitle: Fishing.sum(:fishWeight).round(2).to_s }, cell_class: FishingShowCell },
          { properties: { ftitle: 'ПРОДОЛЖИТЕЛЬНОСТЬ, ЧАСОВ', fsubtitle: Fishing.sum(:duration).to_s }, cell_class: FishingShowCell },
+         { properties: 
+           { 
+             ftitle: 'ПО ФАЗАМ ЛУНЫ',
+             records: Fishing.all 
+           }, height: 300, cell_class: FishingPieChartCell 
+         }
        ],
        footer: "В статистике учитываются все Ваши записи",
       },

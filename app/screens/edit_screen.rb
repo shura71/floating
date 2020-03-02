@@ -12,17 +12,8 @@ class EditScreen < PM::XLFormScreen
   end
 
   def form_data
-    weather = ['Ясно','Облачно','Пасмурно','Дождь','Снег','Tуман','Метель','Ветер']
-    wind_directions = {
-      '0'  => "Cеверный",
-      '45' => "Cеверо-восточный",
-      '90' => "Восточный",
-      '135' => "Юго-восточный",
-      '180' => "Южный",
-      '215' => "Юго-западный",
-      '270' =>  "Западный",
-      '315' => "Северо-западный"
-    }
+    weather = Weather::CONDITIONS
+    wind_directions = Weather::WIND_DIRECTIONS
     unless @record
       @locationManager = CLLocationManager.alloc.init
       @locationManager.requestWhenInUseAuthorization
@@ -285,7 +276,7 @@ class EditScreen < PM::XLFormScreen
               name: :temperature,
               type: :selector_picker_view,
               required: true,
-              value: @record ? @record.temperature : 0,
+              value: @record ? @record.temperature : 15,
               appearance: {
                   font: UIFont.fontWithName('Helvetica', size: 12.0),
                   detail_font: UIFont.fontWithName('Helvetica', size: 12.0),
@@ -301,7 +292,7 @@ class EditScreen < PM::XLFormScreen
               name: :pressure,
               type: :integer,
               required: false,
-              value: @record ? @record.pressure : '',
+              value: @record ? @record.pressure : 0,
               appearance: {
                   font: UIFont.fontWithName('Helvetica', size: 12.0),
                   detail_font: UIFont.fontWithName('Helvetica', size: 12.0),
@@ -315,15 +306,15 @@ class EditScreen < PM::XLFormScreen
               name: :windDirection,
               type: :selector_picker_view,
               required: false,
-              value: @record ? @record.windDirection : '0',
+              value: @record ? @record.windDirection : 0,
               appearance: {
                   font: UIFont.fontWithName('Helvetica', size: 12.0),
                   detail_font: UIFont.fontWithName('Helvetica', size: 12.0),
                   color: UIColor.grayColor,
                   detail_color: UIColor.blackColor
               },
-              options: Hash[wind_directions.keys.map do |key|
-                            [key, wind_directions[key]]
+              options: Hash[wind_directions.each_with_index.map do |str, idx|
+                            [idx, str]
                        end],
             },
             {
@@ -331,7 +322,7 @@ class EditScreen < PM::XLFormScreen
               name: :windSpeed,
               type: :integer,
               required: false,
-              value: @record ? @record.windSpeed : '',
+              value: @record ? @record.windSpeed : 0,
               appearance: {
                   font: UIFont.fontWithName('Helvetica', size: 12.0),
                   detail_font: UIFont.fontWithName('Helvetica', size: 12.0),
@@ -345,14 +336,48 @@ class EditScreen < PM::XLFormScreen
               name: :click_me,
               type: :button,
               on_click: -> (cell) {
-                unless NSUserDefaults.standardUserDefaults["meteostat_key"].blank?
-                  hud = JGProgressHUD.progressHUDWithStyle(JGProgressHUDStyleDark)
+                @coordinates = value_for_cell(:coordinates)
+                @date = value_for_cell(:fishingDate)
+                unless NSUserDefaults.standardUserDefaults['meteostat_key'].blank?
+                hud = JGProgressHUD.progressHUDWithStyle(JGProgressHUDStyleDark)
                   hud.textLabel.text = "Загрузка метеоданных"
                   hud.showInView(app.screen.view)
-                  row = self.form.formRowAtIndex(NSIndexPath.indexPathForRow(2,inSection: 5))
-                  row.value = 740
-                  self.reloadFormRow(row)
-                  hud.dismiss
+                  # https://api.meteostat.net/
+                  unless $cache.has_key?("#{@coordinates.latitude.round(1)}-#{@coordinates.longitude.round(1)}")
+                    AFMotion::JSON.get("https://api.meteostat.net/v1/stations/nearby?lat=#{@coordinates.latitude}&lon=#{@coordinates.longitude}&limit=1&key=#{NSUserDefaults.standardUserDefaults['meteostat_key']}") do |result|
+                      if result.success?
+                        $cache["#{@coordinates.latitude.round(1)}-#{@coordinates.longitude.round(1)}"] = result.object['data'][0]['id']
+                        AFMotion::JSON.get("https://api.meteostat.net/v1/history/hourly?station=#{result.object['data'][0]['id']}&start=#{@date.strftime("%Y-%m-%d")}&end=#{@date.strftime("%Y-%m-%d")}&time_format=Y-m-d%20H:i&key=#{NSUserDefaults.standardUserDefaults['meteostat_key']}") do |result|
+                          if result.success?
+                            update_weather_date(result)
+                            hud.dismiss
+                          elsif result.failure?
+                            hud.dismiss
+                            app.alert(result.error.localizedDescription)
+                          else
+                            hud.dismiss
+                          end
+                        end
+                      elsif result.failure?
+                        hud.dismiss
+                        app.alert(result.error.localizedDescription)
+                      else
+                        hud.dismiss
+                      end
+                    end
+                  else
+                    AFMotion::JSON.get("https://api.meteostat.net/v1/history/hourly?station=#{$cache["#{@coordinates.latitude.round(1)}-#{@coordinates.longitude.round(1)}"]}&start=#{@date.strftime("%Y-%m-%d")}&end=#{@date.strftime("%Y-%m-%d")}&time_format=Y-m-d%20H:i&key=#{NSUserDefaults.standardUserDefaults['meteostat_key']}") do |result|
+                      if result.success?
+                        update_weather_date(result)
+                        hud.dismiss
+                      elsif result.failure?
+                        hud.dismiss
+                        app.alert(result.error.localizedDescription)
+                      else
+                        hud.dismiss
+                      end
+                    end
+                  end
                 end
               },
               enabled: (not NSUserDefaults.standardUserDefaults['meteostat_key'].blank?)
@@ -379,7 +404,7 @@ class EditScreen < PM::XLFormScreen
   end
   
   def save_form(values)
-    mp values
+    m = Moonphase::Moon.new
     unless @record
       Fishing.create(
         id: (Fishing.max(:id).is_a?(Array) ? 1 : Fishing.max(:id) + 1),
@@ -397,6 +422,10 @@ class EditScreen < PM::XLFormScreen
         fishWeight: values['fishWeight'].to_f, 
         temperature: values['temperature'], 
         weather: values['weather'],
+        pressure: values['pressure'],
+        windDirection: values['windDirection'].to_i,
+        windSpeed: values['windSpeed'],        
+        moonPhase: m.getphase(values['fishingDate']),
         cover: UIImageJPEGRepresentation(values['images'][0], 1),
         images: NSKeyedArchiver.archivedDataWithRootObject(values['images'].map {|img| UIImageJPEGRepresentation(img, 1)})
       )
@@ -416,6 +445,10 @@ class EditScreen < PM::XLFormScreen
         fishWeight: values['fishWeight'].to_f, 
         temperature: values['temperature'], 
         weather: values['weather'],
+        pressure: values['pressure'],
+        windDirection: values['windDirection'].to_i,
+        windSpeed: values['windSpeed'],
+        moonPhase: m.getphase(values['fishingDate']),
         cover: UIImageJPEGRepresentation(values['images'][0], 1),
         images: NSKeyedArchiver.archivedDataWithRootObject(values['images'].map {|img| UIImageJPEGRepresentation(img, 1)})
       )
@@ -440,9 +473,58 @@ class EditScreen < PM::XLFormScreen
     row.value = CLLocationCoordinate2DMake(@lat, @lon)
     self.reloadFormRow(row)
   end
+  
+  def update_weather_date(result)
+    result.object['data'].each do |res|
+      if res['time'] == @date.strftime("%Y-%m-%d %H:00:00")
+        if res['condition']
+          row = self.form.formRowAtIndex(NSIndexPath.indexPathForRow(0,inSection: 5))
+          weather =  Weather::CONDITIONS
+          val = case res['condition']
+          when 1..2
+            0
+          when 3
+            1
+          when 4
+            2
+          when 5..6
+            5
+          when 7..11,17..26
+            3
+          when 12..16
+            4
+          when 27
+            7
+          end
+          row.value = XLFormOptionsObject.alloc.initWithValue(val, displayText: weather[val])
+          self.reloadFormRow(row)
+        end
+      
+        row = self.form.formRowAtIndex(NSIndexPath.indexPathForRow(1,inSection: 5))
+        row.value = XLFormOptionsObject.alloc.initWithValue(res['temperature'].round.to_i, displayText: res['temperature'] ? "+#{res['temperature']}" : res['temperature'].to_s)
+        self.reloadFormRow(row)
+      
+        row = self.form.formRowAtIndex(NSIndexPath.indexPathForRow(2,inSection: 5))
+        row.value = res['pressure'] ? (res['pressure'] / 1.333).round.to_i : 740
+        self.reloadFormRow(row)
+      
+        row = self.form.formRowAtIndex(NSIndexPath.indexPathForRow(3,inSection: 5))
+        val = res['winddirection'] / 45
+        wind_directions = Weather::WIND_DIRECTIONS
+        row.value = XLFormOptionsObject.alloc.initWithValue(val.to_s, displayText: wind_directions[val])
+        self.reloadFormRow(row)
+      
+        row = self.form.formRowAtIndex(NSIndexPath.indexPathForRow(4,inSection: 5))
+        row.value = (res['windspeed'] / 3.6).round.to_i
+        self.reloadFormRow(row)
+      
+        self.tableView.reloadData
+      end
+    end
+  end
 end
 
-class NotesController < ProMotion::XLFormViewController 
+class NotesController < ProMotion::XLFormViewController
   attr_accessor :rowDescriptor
   
   def viewDidLoad    
@@ -466,7 +548,7 @@ class NotesController < ProMotion::XLFormViewController
   end
 end
 
-class MapController < ProMotion::XLFormViewController  
+class MapController < ProMotion::XLFormViewController
   PIN_COLORS = {
         red: MKPinAnnotationColorRed,
         green: MKPinAnnotationColorGreen,

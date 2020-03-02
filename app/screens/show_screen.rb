@@ -7,29 +7,9 @@ class ShowScreen < PM::GroupedTableScreen
   end
   
   def table_data
-    m = Moonphase::Moon.new
-    moon_phase_idx = m.getphase(@record.fishingDate)
-    weather = ['Ясно','Облачно','Пасмурно','Дождь','Снег','Tуман','Метель','Ветер']
-    moon_phases = ['Новолуние', 'Молодая луна', 'Первая четверть', 'Прибывающая луна', 'Полнолуние', 'Убывающая луна', 'Последняя четверть', 'Старая луна']
-    unless $cache.has_key? "#{@record.lat.round(1)}-#{@record.lon.round(1)}"
-      unless NSUserDefaults.standardUserDefaults['meteostat_key'].blank?
-      hud = JGProgressHUD.progressHUDWithStyle(JGProgressHUDStyleDark)
-        hud.textLabel.text = "Загрузка метеоданных"
-        hud.showInView(app.screen.view)
-        # https://api.meteostat.net/
-        AFMotion::JSON.get("https://api.meteostat.net/v1/stations/nearby?lat=#{@record.lat}&lon=#{@record.lon}&limit=1&key=#{NSUserDefaults.standardUserDefaults['meteostat_key']}") do |result|
-          if result.success?
-            $cache["#{@record.lat.round(1)}-#{@record.lon.round(1)}"] = result.object['data'][0]['id']
-            hud.dismiss
-          elsif result.failure?
-            hud.dismiss
-            app.alert(result.error.localizedDescription)
-          else
-            hud.dismiss
-          end
-        end
-      end
-    end
+    weather = Weather::CONDITIONS
+    moon_phases = Weather::MOON_PHASES
+    wind_directions = Weather::WIND_DIRECTIONS
     fishing_data = [
         { 
          title: I18n.t("PHOTOS"),
@@ -82,11 +62,27 @@ class ShowScreen < PM::GroupedTableScreen
             accessory_type: UITableViewCellAccessoryNone
           },
           { 
+            properties: { 
+              ftitle: 'Ветер', 
+              fsubtitle: @record.windSpeed  > 0 ? "#{wind_directions[@record.windDirection]}, #{@record.windSpeed.to_i} м/с" : '-'
+            }, 
+            cell_class: FishingShowCell,
+            accessory_type: UITableViewCellAccessoryNone
+          },
+          { 
+            properties: { 
+              ftitle: 'Атомсферное давление, мм рт столба', 
+              fsubtitle: "#{@record.pressure > 0 ? @record.pressure : '-'}"
+            }, 
+            cell_class: FishingShowCell,
+            accessory_type: UITableViewCellAccessoryNone
+          },
+          { 
             # TODO: calculate illumination
             properties: { 
               ftitle: 'Луна', 
-              fsubtitle: moon_phases[moon_phase_idx],
-              fimage: UIImage.imageNamed("phases-0#{ moon_phase_idx }.png")
+              fsubtitle: moon_phases[@record.moonPhase],
+              fimage: UIImage.imageNamed("phases-0#{ @record.moonPhase }.png")
             }, 
             cell_class: FishingShowMoonCell,
             accessory_type: UITableViewCellAccessoryNone
