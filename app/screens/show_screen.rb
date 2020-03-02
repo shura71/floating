@@ -14,7 +14,6 @@ class ShowScreen < PM::GroupedTableScreen
         { 
          title: I18n.t("PHOTOS"),
          cells: [
-           # { image: @record.cropped_cover, height: 120, action: :photo_clicked },
            { properties: { fimages: NSKeyedUnarchiver.unarchiveObjectWithData(@record.images)}, height: 120, cell_class: FishingShowImagesCell }
          ]
         } ,
@@ -110,8 +109,8 @@ class ShowScreen < PM::GroupedTableScreen
             title: "Добавить в трофеи",
             accessory: {
               view: :switch,
-              action: :switched,
-              arguments: { favorite: @record.isFavorite }
+              value: (@record.isFavorite == 1),
+              action: :switched
             }
           }
         ]
@@ -119,9 +118,10 @@ class ShowScreen < PM::GroupedTableScreen
     ]
   end
       
-  def switched(args={})
-    Fishing.where(:id).eq(@record.id).first.isFavorite = ((args[:favorite] == 0) ? true : false)
-    @record.isFavorite = ((args[:favorite] == 0) ? true : false)
+  def switched()
+    f = Fishing.where(:id).eq(@record.id).first
+    f.isFavorite = (f.isFavorite == 0)
+    NSNotificationCenter.defaultCenter.postNotificationName("reloadFishing", object: nil)
     cdq.save 
   end
   

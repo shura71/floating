@@ -12,7 +12,7 @@ class FishingPieChartCell < PM::TableViewCell
   
   def records=(records)
     @records = records
-    @phases = ['Новолуние', 'Молодая', 'Первая ¼', 'Прибывающая', 'Полнолуние', 'Убывающая', 'Последняя ¼', 'Старая']
+    @phases = Weather::MOON_PHASES_GRAPH
     @values = @phases.each_with_index.map {|x, ph| Fishing.where(:moonPhase).eq(ph).size } 
     # Alternative: https://github.com/toamitkumar/motion-plot
     @chart_view = YTPieChart.alloc.initWithFrame([[ (app.screen.view.window.frame.size.width - 280)/3 * 2, 10 ], [ 280, 280 ]])

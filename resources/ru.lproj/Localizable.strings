@@ -46,9 +46,15 @@
 "Northwest" = "Северо-западный";
 "New" = "Новолуние"; 
 "Waxing Crescent" = "Молодая луна"; 
+"Waxing Cres." = "Молодая"; 
 "In Its First Quarter" = "Первая четверть"; 
+"First ¼" = "Первая ¼";
 "Waxing Gibbous" = "Прибывающая луна"; 
+"Waxing Gib." = "Прибывающая"; 
 "Full" = "Полнолуние"; 
 "Waning Gibbous" = "Убывающая луна"; 
+"Waning Gib." = "Убывающая"; 
 "In Its Last Quarter" = "Последняя четверть"; 
+"Last ¼" = "Последняя ¼";
 "Waning Crescent" = "Старая луна";
+"Waning Cres." = "Старая";

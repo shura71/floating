@@ -31,4 +31,15 @@ module Weather
     I18n.t("In Its Last Quarter"),
     I18n.t("Waning Crescent")
   ]
+  
+  MOON_PHASES_GRAPH = [
+    I18n.t("New"),
+    I18n.t("Waxing Cres."),
+    I18n.t("First ¼"),
+    I18n.t("Waxing Gib."),
+    I18n.t("Full"),
+    I18n.t("Waning Gib."),
+    I18n.t("Last ¼"),
+    I18n.t("Waning Cres.")
+  ]
 end

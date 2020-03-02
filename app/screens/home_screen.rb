@@ -9,6 +9,14 @@ class HomeScreen < ProMotion::DataTableScreen
     self.tabBarItem = UITabBarItem.alloc.initWithTitle(I18n.t("Fishing activities"), image:UIImage.imageNamed('float-24.png'), tag:1)
   end
   
+  def fishingChanged(notification)
+    update_table_data
+  end
+  
+  def on_load
+    NSNotificationCenter.defaultCenter.addObserver(self, selector: "fishingChanged:", name: "reloadFishing", object: nil)
+  end
+  
   def get_searchable_params
     params = {hide_initially: true, hides_search_bar_when_scrolling: true, fields: [:place,:region,:fish]}
     
