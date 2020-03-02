@@ -28,7 +28,7 @@ Motion::Project::App.setup do |app|
   app.identifier = 'placesevents.info.Poplavok'
 
   # version for your app
-  app.version = '0.2'
+  app.version = '0.3'
 
   # ===========================================================================================
   # 3. Set your deployment target (it's recommended that you at least target 10.0 and above).
