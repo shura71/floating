@@ -23,7 +23,7 @@ class EditScreen < PM::XLFormScreen
     [
           { 
            title: I18n.t("PHOTOS"),
-           footer: 'Вы можете добавить не более 7 фото',
+           footer: I18n.t('You can add not more than 7 photos'),
            name: :images,
            options: [:insert, :delete, :reorder],
            cells: if not @record or NSKeyedUnarchiver.unarchiveObjectWithData(@record.images).size == 0
@@ -89,10 +89,10 @@ class EditScreen < PM::XLFormScreen
           } ,
           {
             title:  I18n.t("DATE AND TIME"),
-            footer: 'Если не указывать дату и время, то будут использованы текущие',
+            footer: I18n.t('If you do not specify a date and time, the current ones will be used'),
             cells: [
               {
-                title:       'Дата рыбалки',
+                title: I18n.t('Fishing date'),
                 name: :fishingDate,
                 type: :datetime,
                 required: true,
@@ -105,7 +105,7 @@ class EditScreen < PM::XLFormScreen
                 }
               },
               {
-                title:       'Длительность, часов',
+                title: I18n.t('Duration, hours'),
                 name: :duration,
                 type: :number,
                 required: true,
@@ -122,10 +122,10 @@ class EditScreen < PM::XLFormScreen
           },
           {
           title: I18n.t("LOCATION"),
-          footer: 'Укажите место ловли для удобного поиска в дальнейшем',
+          footer: I18n.t('Specify the place of fishing for easy search in the future'),
           cells: [
             {
-              title:       'Место рыбалки',
+              title: I18n.t('Fishing place'),
               name: :place,
               type: :text,
               required: true,
@@ -139,7 +139,7 @@ class EditScreen < PM::XLFormScreen
               }
             },
             {
-              title:       'Регион',
+              title: I18n.t('Region'),
               name: :region,
               type: :text,
               required: true,
@@ -156,10 +156,10 @@ class EditScreen < PM::XLFormScreen
           },
           {
           title: I18n.t("CATCH"),
-          footer: 'Опишите подробнее Вашу рыбалку',
+          footer: I18n.t('Describe your fishing details'),
           cells: [
             {
-              title:       'Рыба',
+              title: I18n.t('Fish'),
               name: :fish,
               type: :text,
               required: true,
@@ -173,7 +173,7 @@ class EditScreen < PM::XLFormScreen
               }
             },
             {
-              title:       'Наживка',
+              title: I18n.t('Bait'),
               name: :bait,
               type: :text,
               required: true,
@@ -187,7 +187,7 @@ class EditScreen < PM::XLFormScreen
               }
             },
             {
-              title:       'Количество, шт',
+              title: I18n.t('Quantity, pcs'),
               name: :fishAmount,
               type: :integer,
               required: true,
@@ -201,7 +201,7 @@ class EditScreen < PM::XLFormScreen
               }
             },
             {
-              title:       'Вес, кг',
+              title: I18n.t('Weight, lb'),
               name: :fishWeight,
               type: :text,
               required: true,
@@ -216,7 +216,7 @@ class EditScreen < PM::XLFormScreen
               keyboard_type: :numbers_punctuation
             },
             {
-              title:       'Описание',
+              title: I18n.t('Description'),
               name: :notes,
               type: :selector_push,
               view_controller_class: NotesController,
@@ -233,10 +233,10 @@ class EditScreen < PM::XLFormScreen
           },
           {
             title: I18n.t("LOCATION MAP"),
-            footer: 'На карте будут указаны GPS координаты рыбалки',
+            footer: I18n.t('The GPS coordinates of the fishing will be indicated on the map'),
             cells: [
               {
-                title: 'Координаты',
+                title: I18n.t('Coordinates'),
                 type: :selector_push,
                 name: :coordinates,
                 view_controller_class: MapController,
@@ -253,10 +253,10 @@ class EditScreen < PM::XLFormScreen
           },
           {
           title: I18n.t("WEATHER DATA"),
-          footer: "Добавьте описание погоды. При наличии ключа доступа к meteodata API (задается в настройках приложения) данные могут быть загружены по нажатию на соответствующую кнопку.",
+          footer: I18n.t('Add a weather description. If there is an access key to the meteodata API (specified in the application settings), data can be downloaded by clicking on the corresponding button.'),
           cells: [
             {
-              title:       'Погода',
+              title: I18n.t('Weather'),
               name: :weather,
               type: :selector_picker_view,
               required: true,
@@ -272,7 +272,7 @@ class EditScreen < PM::XLFormScreen
                        end],
             },
             {
-              title:       'Температура',
+              title: I18n.t('Temperature'),
               name: :temperature,
               type: :selector_picker_view,
               required: true,
@@ -288,7 +288,7 @@ class EditScreen < PM::XLFormScreen
                        end],
             },
             {
-              title:       'Атомосферное давление, мм. рт. столба',
+              title: I18n.t('Pressure, hg mm'),
               name: :pressure,
               type: :integer,
               required: false,
@@ -302,7 +302,7 @@ class EditScreen < PM::XLFormScreen
               }
             },
             {
-              title:       'Направление ветра',
+              title: I18n.t('Wind direction'),
               name: :windDirection,
               type: :selector_picker_view,
               required: false,
@@ -318,7 +318,7 @@ class EditScreen < PM::XLFormScreen
                        end],
             },
             {
-              title:       'Скорость ветра, м/с',
+              title: I18n.t('Wind speed, m/s'),
               name: :windSpeed,
               type: :integer,
               required: false,
@@ -332,7 +332,7 @@ class EditScreen < PM::XLFormScreen
               }
             },
             {
-              title: 'Загрузить',
+              title: I18n.t('Download'),
               name: :click_me,
               type: :button,
               on_click: -> (cell) {
@@ -349,7 +349,8 @@ class EditScreen < PM::XLFormScreen
                         $cache["#{@coordinates.latitude.round(1)}-#{@coordinates.longitude.round(1)}"] = result.object['data'][0]['id']
                         AFMotion::JSON.get("https://api.meteostat.net/v1/history/hourly?station=#{result.object['data'][0]['id']}&start=#{@date.strftime("%Y-%m-%d")}&end=#{@date.strftime("%Y-%m-%d")}&time_format=Y-m-d%20H:i&key=#{NSUserDefaults.standardUserDefaults['meteostat_key']}") do |result|
                           if result.success?
-                            update_weather_date(result)
+                            # TODO: show error message
+                            update_weather_data(result)
                             hud.dismiss
                           elsif result.failure?
                             hud.dismiss
@@ -368,7 +369,7 @@ class EditScreen < PM::XLFormScreen
                   else
                     AFMotion::JSON.get("https://api.meteostat.net/v1/history/hourly?station=#{$cache["#{@coordinates.latitude.round(1)}-#{@coordinates.longitude.round(1)}"]}&start=#{@date.strftime("%Y-%m-%d")}&end=#{@date.strftime("%Y-%m-%d")}&time_format=Y-m-d%20H:i&key=#{NSUserDefaults.standardUserDefaults['meteostat_key']}") do |result|
                       if result.success?
-                        update_weather_date(result)
+                        update_weather_data(result)
                         hud.dismiss
                       elsif result.failure?
                         hud.dismiss
@@ -386,10 +387,10 @@ class EditScreen < PM::XLFormScreen
           },
           {      
           title: I18n.t("TROPHIES"),
-          footer: 'Эта запись будет отображаться в разделе Трофеи',
+          footer: I18n.t('This entry will be displayed in the Trophies section.'),
           cells: [
             {
-              title: "Добавить в трофеи",
+              title: I18n.t('Add to trophies'),
               name: :isFavorite,
               type: :switch,
               value: @record ? @record.isFavorite : false
@@ -474,7 +475,7 @@ class EditScreen < PM::XLFormScreen
     self.reloadFormRow(row)
   end
   
-  def update_weather_date(result)
+  def update_weather_data(result)
     result.object['data'].each do |res|
       if res['time'] == @date.strftime("%Y-%m-%d %H:00:00")
         if res['condition']

@@ -93,7 +93,7 @@ Motion::Project::App.setup do |app|
   #
   #    Download the profile and set the path to the download location below.
   # ===========================================================================================
-  app.provisioning_profile = '/Users/shura/Library/MobileDevice/Provisioning Profiles/2625fdef-5c06-496e-b806-5c238a22a1a7.mobileprovision'
+  app.provisioning_profile = '/Users/shura/Library/MobileDevice/Provisioning Profiles/b79fa611-8a52-4211-bda6-cc34ba73d6bb.mobileprovision'
 
   # ===========================================================================================
   # 8. Similar to Step 7. Production, create a production certificate at:

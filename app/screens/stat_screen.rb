@@ -16,24 +16,24 @@ class StatScreen < PM::GroupedTableScreen
   def table_data
     [
       { 
-       title: I18n.t("ВАШИ РЫБАЛКИ"),
+       title: I18n.t('YOUR FISHING'),
        cells: [
-         { properties: { ftitle: 'ВСЕГО РЫБАЛОК', fsubtitle: Fishing.all.size.to_s }, cell_class: FishingShowCell },
-         { properties: { ftitle: 'КОЛИЧЕСТВО ХВОСТОВ, ШТ', fsubtitle: Fishing.sum(:fishAmount).to_s }, cell_class: FishingShowCell },
-         { properties: { ftitle: 'ОБЩИЙ ВЕС, КГ', fsubtitle: Fishing.sum(:fishWeight).round(2).to_s }, cell_class: FishingShowCell },
-         { properties: { ftitle: 'ПРОДОЛЖИТЕЛЬНОСТЬ, ЧАСОВ', fsubtitle: Fishing.sum(:duration).to_s }, cell_class: FishingShowCell },
+         { properties: { ftitle: I18n.t('TOTAL FISHING'), fsubtitle: Fishing.all.size.to_s }, cell_class: FishingShowCell },
+         { properties: { ftitle: I18n.t('NUMBER OF TAILS, PCS'), fsubtitle: Fishing.sum(:fishAmount).to_s }, cell_class: FishingShowCell },
+         { properties: { ftitle: I18n.t('TOTAL WEIGHT, KG'), fsubtitle: Fishing.sum(:fishWeight).round(2).to_s }, cell_class: FishingShowCell },
+         { properties: { ftitle: I18n.t('DURATION, HOURS'), fsubtitle: Fishing.sum(:duration).to_s }, cell_class: FishingShowCell },
          { properties: 
            { 
-             ftitle: 'ПО ФАЗАМ ЛУНЫ',
+             ftitle: I18n.t('BY PHASE OF THE MOON'),
              records: Fishing.all 
            }, height: 300, cell_class: FishingPieChartCell 
          }
        ],
-       footer: "В статистике учитываются все Ваши записи",
+       footer: I18n.t('The statistics take into account all your records'),
       },
       { 
-       title: I18n.t("ТРОФЕИ"),
-       footer: "Отметьте трофеи в записи о рыбалке",
+       title: I18n.t("TROPHIES"),
+       footer: I18n.t('Mark trophies in fishing record'),
        cells: Fishing.where(:isFavorite).eq(true).sort_by(:fishingDate, order: :descending).map do |record|
          {
            properties: {

@@ -20,27 +20,27 @@ class ShowScreen < PM::GroupedTableScreen
         {
         title: I18n.t("DATE AND TIME"),
         cells: [
-          { properties: { ftitle: 'Дата рыбалки', fsubtitle: @record.fishingDate.strftime('%Y-%m-%d %H:%M')}, cell_class: FishingShowCell },
-          { properties: { ftitle: 'Длительность, часов', fsubtitle: @record.duration.to_s}, cell_class: FishingShowCell },
+          { properties: { ftitle: I18n.t('Fishing date'), fsubtitle: @record.fishingDate.strftime('%Y-%m-%d %H:%M')}, cell_class: FishingShowCell },
+          { properties: { ftitle: I18n.t('Duration, hours'), fsubtitle: @record.duration.to_s}, cell_class: FishingShowCell },
         ]
         },
         {
         title: I18n.t("LOCATION"),
         cells: [
-          { properties: { ftitle: 'Место рыбалки', fsubtitle: @record.place}, cell_class: FishingShowCell },
-          { properties: { ftitle: 'Регион', fsubtitle: @record.region}, cell_class: FishingShowCell },
+          { properties: { ftitle: I18n.t('Fishing place'), fsubtitle: @record.place}, cell_class: FishingShowCell },
+          { properties: { ftitle: I18n.t('Region'), fsubtitle: @record.region}, cell_class: FishingShowCell },
         ]
         },
         {
         title: I18n.t("CATCH"),
         cells: [
-          { properties: { ftitle: 'Рыба', fsubtitle: @record.fish}, cell_class: FishingShowCell },
-          { properties: { ftitle: 'Наживка', fsubtitle: @record.bait}, cell_class: FishingShowCell },
-          { properties: { ftitle: 'Количество, шт', fsubtitle: @record.fishAmount.to_s}, cell_class: FishingShowCell },
-          { properties: { ftitle: 'Вес, кг', fsubtitle: @record.fishWeight.round(2).to_s}, cell_class: FishingShowCell },
+          { properties: { ftitle: I18n.t('Fish'), fsubtitle: @record.fish}, cell_class: FishingShowCell },
+          { properties: { ftitle: I18n.t('Bait'), fsubtitle: @record.bait}, cell_class: FishingShowCell },
+          { properties: { ftitle: I18n.t('Quantity, pcs'), fsubtitle: @record.fishAmount.to_s}, cell_class: FishingShowCell },
+          { properties: { ftitle: I18n.t('Weight, lb'), fsubtitle: @record.fishWeight.round(2).to_s}, cell_class: FishingShowCell },
           { 
             properties: { 
-              ftitle: 'Описание', 
+              ftitle: I18n.t('Description'), 
               fsubtitle: @record.notes
             }, 
             cell_class: FishingShowCell,
@@ -54,7 +54,7 @@ class ShowScreen < PM::GroupedTableScreen
         cells: [
           { 
             properties: { 
-              ftitle: 'Погода', 
+              ftitle: I18n.t('Weather'), 
               fsubtitle: "#{weather[@record.weather]} #{@record.temperature > 0 ? '+' : ''}#{@record.temperature} °С"
             }, 
             cell_class: FishingShowCell,
@@ -62,15 +62,15 @@ class ShowScreen < PM::GroupedTableScreen
           },
           { 
             properties: { 
-              ftitle: 'Ветер', 
-              fsubtitle: @record.windSpeed  > 0 ? "#{wind_directions[@record.windDirection]}, #{@record.windSpeed.to_i} м/с" : '-'
+              ftitle: I18n.t('Wind'), 
+              fsubtitle: @record.windSpeed  > 0 ? "#{wind_directions[@record.windDirection]}, #{@record.windSpeed.to_i} #{I18n.t('m/s')}" : '-'
             }, 
             cell_class: FishingShowCell,
             accessory_type: UITableViewCellAccessoryNone
           },
           { 
             properties: { 
-              ftitle: 'Атомсферное давление, мм рт столба', 
+              ftitle: I18n.t('Pressure, hg mm'), 
               fsubtitle: "#{@record.pressure > 0 ? @record.pressure : '-'}"
             }, 
             cell_class: FishingShowCell,
@@ -79,7 +79,7 @@ class ShowScreen < PM::GroupedTableScreen
           { 
             # TODO: calculate illumination
             properties: { 
-              ftitle: 'Луна', 
+              ftitle: I18n.t('Moon'), 
               fsubtitle: moon_phases[@record.moonPhase],
               fimage: UIImage.imageNamed("phases-0#{ @record.moonPhase }.png")
             }, 
@@ -106,7 +106,7 @@ class ShowScreen < PM::GroupedTableScreen
         title: I18n.t("TROPHIES"),
         cells: [
           {
-            title: "Добавить в трофеи",
+            title: I18n.t('Add to trophies'),
             accessory: {
               view: :switch,
               value: (@record.isFavorite == 1),
