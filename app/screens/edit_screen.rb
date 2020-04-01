@@ -340,7 +340,7 @@ class EditScreen < PM::XLFormScreen
                 @date = value_for_cell(:fishingDate)
                 unless NSUserDefaults.standardUserDefaults['meteostat_key'].blank?
                 hud = JGProgressHUD.progressHUDWithStyle(JGProgressHUDStyleDark)
-                  hud.textLabel.text = "Загрузка метеоданных"
+                  hud.textLabel.text = I18n.t("Weather data loading")
                   hud.showInView(app.screen.view)
                   # https://api.meteostat.net/
                   unless $cache.has_key?("#{@coordinates.latitude.round(1)}-#{@coordinates.longitude.round(1)}")

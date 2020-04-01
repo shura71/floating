@@ -28,7 +28,7 @@ Motion::Project::App.setup do |app|
   app.identifier = 'placesevents.info.Poplavok'
 
   # version for your app
-  app.version = '0.3'
+  app.version = '0.4'
 
   # ===========================================================================================
   # 3. Set your deployment target (it's recommended that you at least target 10.0 and above).
@@ -93,7 +93,7 @@ Motion::Project::App.setup do |app|
   #
   #    Download the profile and set the path to the download location below.
   # ===========================================================================================
-  app.provisioning_profile = '/Users/shura/Library/MobileDevice/Provisioning Profiles/b79fa611-8a52-4211-bda6-cc34ba73d6bb.mobileprovision'
+  app.provisioning_profile = '/Users/shura/Library/MobileDevice/Provisioning Profiles/138365e7-888f-4dce-a373-088902817b4a.mobileprovision'
 
   # ===========================================================================================
   # 8. Similar to Step 7. Production, create a production certificate at:
