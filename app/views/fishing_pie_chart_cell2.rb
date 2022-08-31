@@ -1,4 +1,4 @@
-class FishingPieChartCell < PM::TableViewCell
+class FishingPieChartCell2 < PM::TableViewCell
   def ftitle=(place)
     @place_view ||= begin 
       label = add UILabel.alloc.initWithFrame([[ 15, 0 ], [ self.contentView.frame.size.width - 15 , 30 ]])
@@ -12,9 +12,8 @@ class FishingPieChartCell < PM::TableViewCell
   
   def records=(records)
     @records = records
-    @phases = Weather::MOON_PHASES_GRAPH
-    @values = @phases.each_with_index.map {|x, ph| Fishing.where(:moonPhase).eq(ph).size } 
-    # Alternative: https://github.com/toamitkumar/motion-plot
+    @conditions = Weather::CONDITIONS
+    @values = @conditions.each_with_index.map {|x, ph| Fishing.where(:weather).eq(ph).size } 
     @chart_view = YTPieChart.alloc.initWithFrame([[ (app.screen.view.window.frame.size.width - 280)/3 * 2, 10 ], [ 280, 280 ]])
     @chart_view.dataSource = self
     @chart_view.delegate = self
@@ -23,7 +22,7 @@ class FishingPieChartCell < PM::TableViewCell
   end  
   
   def numberOfSlicesInChart(chart)
-    @phases.size
+    @values.select { |_, value| value != 0 }.size
   end
   
   def chart(chart, valueForSliceAtIndex:index)
@@ -44,6 +43,6 @@ class FishingPieChartCell < PM::TableViewCell
   end
   
   def chart(chart, titleForSliceAtIndex:index)
-    "#{@phases[index]}\n(#{(@values[index]/(@records.size * 1.0) * 100).round(1)}%)"
+    @values[index] != 0 ? "#{@conditions[index]} (#{(@values[index]/(@records.size * 1.0) * 100).round(1)})%" : ""
   end
 end

@@ -94,14 +94,17 @@ class EditScreen < PM::XLFormScreen
               {
                 title: I18n.t('Fishing date'),
                 name: :fishingDate,
-                type: :datetime,
+                type: :datetime_inline,
                 required: true,
                 value: @record ? @record.fishingDate : Time.now,
                 appearance: {
                     font: UIFont.fontWithName('Helvetica', size: 12.0),
-                    detail_font: UIFont.fontWithName('Helvetica', size: 12.0),
-                    color: UIColor.grayColor,
-                    detail_color: UIColor.blackColor
+                    detail_font: UIFont.fontWithName('Helvetica', size: 15.0),
+                    color: UIColor.placeholderTextColor,
+                    detail_color: UIColor.labelColor
+                },
+                properties: {
+                  # minute_interval: 15 - see min/max
                 }
               },
               {
@@ -113,9 +116,11 @@ class EditScreen < PM::XLFormScreen
                 appearance: {
                     font: UIFont.fontWithName('Helvetica', size: 12.0),
                     detail_font: UIFont.fontWithName('Helvetica', size: 12.0),
-                    color: UIColor.grayColor,
-                    detail_color: UIColor.blackColor,
-                    alignment: :right
+                    color: UIColor.placeholderTextColor,
+                    detail_color: UIColor.labelColor,
+                    alignment: :right,
+                    "textField.textColor" => UIColor.labelColor,
+                    "textField.font" => UIFont.fontWithName('Helvetica', size: 15.0)
                 }
               }
             ]
@@ -133,9 +138,11 @@ class EditScreen < PM::XLFormScreen
               appearance: {
                   font: UIFont.fontWithName('Helvetica', size: 12.0),
                   detail_font: UIFont.fontWithName('Helvetica', size: 12.0),
-                  color: UIColor.grayColor,
-                  detail_color: UIColor.blackColor,
-                  alignment: :right
+                  color: UIColor.placeholderTextColor,
+                  detail_color: UIColor.labelColor,
+                  alignment: :right,
+                  "textField.textColor" => UIColor.labelColor,
+                  "textField.font" => UIFont.fontWithName('Helvetica', size: 15.0)
               }
             },
             {
@@ -147,9 +154,11 @@ class EditScreen < PM::XLFormScreen
               appearance: {
                   font: UIFont.fontWithName('Helvetica', size: 12.0),
                   detail_font: UIFont.fontWithName('Helvetica', size: 12.0),
-                  color: UIColor.grayColor,
-                  detail_color: UIColor.blackColor,
-                  alignment: :right
+                  color: UIColor.placeholderTextColor,
+                  detail_color: UIColor.labelColor,
+                  alignment: :right,
+                  "textField.textColor" => UIColor.labelColor,
+                  "textField.font" => UIFont.fontWithName('Helvetica', size: 15.0)
               }
             }
           ]
@@ -167,9 +176,11 @@ class EditScreen < PM::XLFormScreen
               appearance: {
                   font: UIFont.fontWithName('Helvetica', size: 12.0),
                   detail_font: UIFont.fontWithName('Helvetica', size: 12.0),
-                  color: UIColor.grayColor,
-                  detail_color: UIColor.blackColor,
-                  alignment: :right
+                  color: UIColor.placeholderTextColor,
+                  detail_color: UIColor.labelColor,
+                  alignment: :right,
+                  "textField.textColor" => UIColor.labelColor,
+                  "textField.font" => UIFont.fontWithName('Helvetica', size: 15.0)
               }
             },
             {
@@ -181,9 +192,11 @@ class EditScreen < PM::XLFormScreen
               appearance: {
                   font: UIFont.fontWithName('Helvetica', size: 12.0),
                   detail_font: UIFont.fontWithName('Helvetica', size: 12.0),
-                  color: UIColor.grayColor,
-                  detail_color: UIColor.blackColor,
-                  alignment: :right
+                  color: UIColor.placeholderTextColor,
+                  detail_color: UIColor.labelColor,
+                  alignment: :right,
+                  "textField.textColor" => UIColor.labelColor,
+                  "textField.font" => UIFont.fontWithName('Helvetica', size: 15.0)
               }
             },
             {
@@ -195,9 +208,11 @@ class EditScreen < PM::XLFormScreen
               appearance: {
                   font: UIFont.fontWithName('Helvetica', size: 12.0),
                   detail_font: UIFont.fontWithName('Helvetica', size: 12.0),
-                  color: UIColor.grayColor,
-                  detail_color: UIColor.blackColor,
-                  alignment: :right
+                  color: UIColor.placeholderTextColor,
+                  detail_color: UIColor.labelColor,
+                  alignment: :right,
+                  "textField.textColor" => UIColor.labelColor,
+                  "textField.font" => UIFont.fontWithName('Helvetica', size: 15.0)
               }
             },
             {
@@ -209,9 +224,11 @@ class EditScreen < PM::XLFormScreen
               appearance: {
                   font: UIFont.fontWithName('Helvetica', size: 12.0),
                   detail_font: UIFont.fontWithName('Helvetica', size: 12.0),
-                  color: UIColor.grayColor,
-                  detail_color: UIColor.blackColor,
-                  alignment: :right
+                  color: UIColor.placeholderTextColor,
+                  detail_color: UIColor.labelColor,
+                  alignment: :right,
+                  "textField.textColor" => UIColor.labelColor,
+                  "textField.font" => UIFont.fontWithName('Helvetica', size: 15.0)
               },
               keyboard_type: :numbers_punctuation
             },
@@ -224,9 +241,9 @@ class EditScreen < PM::XLFormScreen
               value: @record ? @record.notes : '',
               appearance: {
                   font: UIFont.fontWithName('Helvetica', size: 12.0),
-                  detail_font: UIFont.fontWithName('Helvetica', size: 12.0),
-                  color: UIColor.grayColor,
-                  detail_color: UIColor.blackColor
+                  detail_font: UIFont.fontWithName('Helvetica', size: 15.0),
+                  color: UIColor.placeholderTextColor,
+                  detail_color: UIColor.labelColor
               }
             }
           ],
@@ -244,9 +261,9 @@ class EditScreen < PM::XLFormScreen
                 value: CLLocationCoordinate2DMake(@record ? @record.lat : @lat, @record ? @record.lon : @lon),
                 appearance: {
                     font: UIFont.fontWithName('Helvetica', size: 12.0),
-                    detail_font: UIFont.fontWithName('Helvetica', size: 12.0),
-                    color: UIColor.grayColor,
-                    detail_color: UIColor.blackColor,
+                    detail_font: UIFont.fontWithName('Helvetica', size: 15.0),
+                    color: UIColor.placeholderTextColor,
+                    detail_color: UIColor.labelColor,
                 }
               }
             ]
@@ -263,9 +280,9 @@ class EditScreen < PM::XLFormScreen
               value: @record ? @record.weather : 0,
               appearance: {
                   font: UIFont.fontWithName('Helvetica', size: 12.0),
-                  detail_font: UIFont.fontWithName('Helvetica', size: 12.0),
-                  color: UIColor.grayColor,
-                  detail_color: UIColor.blackColor
+                  detail_font: UIFont.fontWithName('Helvetica', size: 15.0),
+                  color: UIColor.placeholderTextColor,
+                  detail_color: UIColor.labelColor
               },
               options: Hash[weather.each_with_index.map do |str, idx|
                             [idx, str]
@@ -279,9 +296,9 @@ class EditScreen < PM::XLFormScreen
               value: @record ? @record.temperature : 15,
               appearance: {
                   font: UIFont.fontWithName('Helvetica', size: 12.0),
-                  detail_font: UIFont.fontWithName('Helvetica', size: 12.0),
-                  color: UIColor.grayColor,
-                  detail_color: UIColor.blackColor
+                  detail_font: UIFont.fontWithName('Helvetica', size: 15.0),
+                  color: UIColor.placeholderTextColor,
+                  detail_color: UIColor.labelColor
               },
               options: Hash[(-30..40).map do |temp|
                             [temp, temp > 0 ? "+#{temp}" : temp.to_s]
@@ -296,9 +313,11 @@ class EditScreen < PM::XLFormScreen
               appearance: {
                   font: UIFont.fontWithName('Helvetica', size: 12.0),
                   detail_font: UIFont.fontWithName('Helvetica', size: 12.0),
-                  color: UIColor.grayColor,
-                  detail_color: UIColor.blackColor,
-                  alignment: :right
+                  color: UIColor.placeholderTextColor,
+                  detail_color: UIColor.labelColor,
+                  alignment: :right,
+                  "textField.textColor" => UIColor.labelColor,
+                  "textField.font" => UIFont.fontWithName('Helvetica', size: 15.0)                  
               }
             },
             {
@@ -309,9 +328,9 @@ class EditScreen < PM::XLFormScreen
               value: @record ? @record.windDirection : 0,
               appearance: {
                   font: UIFont.fontWithName('Helvetica', size: 12.0),
-                  detail_font: UIFont.fontWithName('Helvetica', size: 12.0),
-                  color: UIColor.grayColor,
-                  detail_color: UIColor.blackColor
+                  detail_font: UIFont.fontWithName('Helvetica', size: 15.0),
+                  color: UIColor.placeholderTextColor,
+                  detail_color: UIColor.labelColor
               },
               options: Hash[wind_directions.each_with_index.map do |str, idx|
                             [idx, str]
@@ -326,9 +345,11 @@ class EditScreen < PM::XLFormScreen
               appearance: {
                   font: UIFont.fontWithName('Helvetica', size: 12.0),
                   detail_font: UIFont.fontWithName('Helvetica', size: 12.0),
-                  color: UIColor.grayColor,
-                  detail_color: UIColor.blackColor,
-                  alignment: :right
+                  color: UIColor.placeholderTextColor,
+                  detail_color: UIColor.labelColor,
+                  alignment: :right,
+                  "textField.textColor" => UIColor.labelColor,
+                  "textField.font" => UIFont.fontWithName('Helvetica', size: 15.0)
               }
             },
             {
@@ -342,12 +363,20 @@ class EditScreen < PM::XLFormScreen
                 hud = JGProgressHUD.progressHUDWithStyle(JGProgressHUDStyleDark)
                   hud.textLabel.text = I18n.t("Weather data loading")
                   hud.showInView(app.screen.view)
-                  # https://api.meteostat.net/
+                  # https://dev.meteostat.net/api/
+                  @client = AFMotion::SessionClient.build("https://meteostat.p.rapidapi.com/") do
+                    session_configuration :default
+                    header "Accept", "application/json"
+                    header "x-rapidapi-key", NSUserDefaults.standardUserDefaults['meteostat_key']
+                    header "x-rapidapi-host", "meteostat.p.rapidapi.com"
+
+                    response_serializer :json
+                  end
                   unless $cache.has_key?("#{@coordinates.latitude.round(1)}-#{@coordinates.longitude.round(1)}")
-                    AFMotion::JSON.get("https://api.meteostat.net/v1/stations/nearby?lat=#{@coordinates.latitude}&lon=#{@coordinates.longitude}&limit=1&key=#{NSUserDefaults.standardUserDefaults['meteostat_key']}") do |result|
+                    @client.get("stations/nearby?lat=#{@coordinates.latitude}&lon=#{@coordinates.longitude}&limit=1") do |result|
                       if result.success?
                         $cache["#{@coordinates.latitude.round(1)}-#{@coordinates.longitude.round(1)}"] = result.object['data'][0]['id']
-                        AFMotion::JSON.get("https://api.meteostat.net/v1/history/hourly?station=#{result.object['data'][0]['id']}&start=#{@date.strftime("%Y-%m-%d")}&end=#{@date.strftime("%Y-%m-%d")}&time_format=Y-m-d%20H:i&key=#{NSUserDefaults.standardUserDefaults['meteostat_key']}") do |result|
+                        @client.get("stations/hourly?station=#{result.object['data'][0]['id']}&start=#{@date.strftime("%Y-%m-%d")}&end=#{@date.strftime("%Y-%m-%d")}") do |result|
                           if result.success?
                             # TODO: show error message
                             update_weather_data(result)
@@ -367,7 +396,7 @@ class EditScreen < PM::XLFormScreen
                       end
                     end
                   else
-                    AFMotion::JSON.get("https://api.meteostat.net/v1/history/hourly?station=#{$cache["#{@coordinates.latitude.round(1)}-#{@coordinates.longitude.round(1)}"]}&start=#{@date.strftime("%Y-%m-%d")}&end=#{@date.strftime("%Y-%m-%d")}&time_format=Y-m-d%20H:i&key=#{NSUserDefaults.standardUserDefaults['meteostat_key']}") do |result|
+                    @client.get("stations/hourly?station=#{$cache["#{@coordinates.latitude.round(1)}-#{@coordinates.longitude.round(1)}"]}&start=#{@date.strftime("%Y-%m-%d")}&end=#{@date.strftime("%Y-%m-%d")}") do |result|
                       if result.success?
                         update_weather_data(result)
                         hud.dismiss
@@ -393,7 +422,13 @@ class EditScreen < PM::XLFormScreen
               title: I18n.t('Add to trophies'),
               name: :isFavorite,
               type: :switch,
-              value: @record ? @record.isFavorite : false
+              value: @record ? @record.isFavorite : false,
+              appearance: {
+                  font: UIFont.fontWithName('Helvetica', size: 15.0),
+                  detail_font: UIFont.fontWithName('Helvetica', size: 12.0),
+                  color: UIColor.placeholderTextColor,
+                  detail_color: UIColor.labelColor
+              }
             }
           ]
          }
@@ -477,11 +512,11 @@ class EditScreen < PM::XLFormScreen
   
   def update_weather_data(result)
     result.object['data'].each do |res|
-      if res['time'] == @date.strftime("%Y-%m-%d %H:00:00")
-        if res['condition']
+      if res['time'] == @date.utc.strftime("%Y-%m-%d %H:00:00")
+        if res['coco']
           row = self.form.formRowAtIndex(NSIndexPath.indexPathForRow(0,inSection: 5))
           weather =  Weather::CONDITIONS
-          val = case res['condition']
+          val = case res['coco']
           when 1..2
             0
           when 3
@@ -502,21 +537,21 @@ class EditScreen < PM::XLFormScreen
         end
       
         row = self.form.formRowAtIndex(NSIndexPath.indexPathForRow(1,inSection: 5))
-        row.value = XLFormOptionsObject.alloc.initWithValue(res['temperature'].round.to_i, displayText: res['temperature'] ? "+#{res['temperature']}" : res['temperature'].to_s)
+        row.value = XLFormOptionsObject.alloc.initWithValue(res['temp'].round.to_i, displayText: res['temp'] ? "+#{res['temp']}" : res['temp'].to_s)
         self.reloadFormRow(row)
       
         row = self.form.formRowAtIndex(NSIndexPath.indexPathForRow(2,inSection: 5))
-        row.value = res['pressure'] ? (res['pressure'] / 1.333).round.to_i : 740
+        row.value = res['pres'] ? (res['pres'] / 1.333).round.to_i : 740
         self.reloadFormRow(row)
       
         row = self.form.formRowAtIndex(NSIndexPath.indexPathForRow(3,inSection: 5))
-        val = res['winddirection'] / 45
+        val = res['wdir'] / 45
         wind_directions = Weather::WIND_DIRECTIONS
         row.value = XLFormOptionsObject.alloc.initWithValue(val.to_s, displayText: wind_directions[val])
         self.reloadFormRow(row)
       
         row = self.form.formRowAtIndex(NSIndexPath.indexPathForRow(4,inSection: 5))
-        row.value = (res['windspeed'] / 3.6).round.to_i
+        row.value = (res['wspd'] / 3.6).round.to_i
         self.reloadFormRow(row)
       
         self.tableView.reloadData

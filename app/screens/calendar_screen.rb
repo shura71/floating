@@ -1,7 +1,7 @@
 class CalendarScreen < PM::Screen
   title I18n.t("Calendar")
   
-  nav_bar_button :right, system_item: :add, style: :plain, action: :add_new_record, tint_color: UIColor.blackColor
+  nav_bar_button :right, system_item: :add, style: :plain, action: :add_new_record, tint_color: UIColor.labelColor
   
   def on_init
     self.tabBarItem = UITabBarItem.alloc.initWithTitle(I18n.t("Calendar"), image:UIImage.imageNamed('calendar-24.png'), tag:2)
@@ -32,14 +32,15 @@ class CalendarScreen < PM::Screen
         end
       end
       NSNotificationCenter.defaultCenter.addObserver(self, selector: "fishingChanged:", name: "reloadFishing", object: nil)
-      @calendar = FSCalendar.alloc.initWithFrame(CGRectMake(10, 55, self.view.width - 20, self.view.height / 2))
+      @calendar = FSCalendar.alloc.initWithFrame(CGRectMake(10, 65, self.view.width - 20, self.view.height / 2))
       @calendar.dataSource = self
       @calendar.delegate = self
-      @calendar.backgroundColor = UIColor.whiteColor
+      @calendar.backgroundColor = UIColor.systemBackgroundColor
       @calendar.firstWeekday = 2
-      @calendar.appearance.headerTitleColor = UIColor.blackColor
-      @calendar.appearance.weekdayTextColor = UIColor.blackColor
-      @calendar.appearance.todayColor = UIColor.blackColor
+      @calendar.appearance.headerTitleColor = UIColor.labelColor
+      @calendar.appearance.weekdayTextColor = UIColor.labelColor
+      @calendar.appearance.todayColor = UIColor.secondaryLabelColor
+      @calendar.appearance.titleDefaultColor = UIColor.labelColor
       self.view.addSubview(@calendar)
       @myTableView = UITableView.alloc.initWithFrame(CGRectMake(0, self.view.height / 2 + 65, self.view.width, self.view.height / 2 - 40), style:UITableViewStylePlain)
       @myTableView.dataSource = self
@@ -49,7 +50,7 @@ class CalendarScreen < PM::Screen
   
   def load_view
     self.view = UIView.alloc.initWithFrame(UIScreen.mainScreen.bounds)
-    self.view.backgroundColor = UIColor.whiteColor
+    self.view.backgroundColor = UIColor.systemBackgroundColor
   end
   
   def calendar(calendar, numberOfEventsForDate:date)
@@ -62,12 +63,12 @@ class CalendarScreen < PM::Screen
   
   def calendar(calendar, appearance:appearance, eventDefaultColorsForDate:date)
       # appearance.eventDefaultColor
-      [UIColor.lightGrayColor,UIColor.lightGrayColor,UIColor.blackColor]
+      [UIColor.placeholderTextColor,UIColor.placeholderTextColor,UIColor.labelColor]
   end
   
   def calendar(calendar, appearance:appearance, fillDefaultColorForDate:date)
     if @dates.has_key?(date.strftime("%Y-%m-%d"))
-      UIColor.lightGrayColor.with(a: 0.25)
+      UIColor.placeholderTextColor.with(a: 0.25)
     else
       nil
     end
@@ -78,6 +79,11 @@ class CalendarScreen < PM::Screen
     if @dates.has_key?(date.strftime("%Y-%m-%d"))
       Fishing.where(:id).in(@dates[date.strftime("%Y-%m-%d")]).each {|rec| @fishings << rec }
     end
+    @myTableView.reloadData
+  end
+  
+  def calendarCurrentPageDidChange(calendar)
+    @fishings = []
     @myTableView.reloadData
   end
   
@@ -93,11 +99,13 @@ class CalendarScreen < PM::Screen
      cell.textLabel.text = "#{@fishings[indexPath.row].fish}, #{@fishings[indexPath.row].fishWeight.round(2)} кг"
      cell.textLabel.font = UIFont.fontWithName("Helvetica", size:15)
      cell.detailTextLabel.text = "#{@fishings[indexPath.row].place}, #{@fishings[indexPath.row].region}"
-     cell.detailTextLabel.color = UIColor.lightGrayColor
+     cell.detailTextLabel.color = UIColor.placeholderTextColor
      cell.detailTextLabel.font = UIFont.fontWithName("Helvetica", size:12)
      cell.imageView.image = @fishings[indexPath.row].cropped_cover
      cell.imageView.layer.setCornerRadius(10)
      cell.imageView.layer.setMasksToBounds(true)
+     cell.imageView.layer.setBorderWidth(2)
+     cell.imageView.layer.setBorderColor(UIColor.systemBackgroundColor.CGColor)
      cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator
      cell
   end

@@ -11,7 +11,7 @@ class MapController < ProMotion::XLFormViewController
       self.title = "Карта"
       @map = MKMapView.alloc.initWithFrame(self.view.bounds)
       @map.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight
-      @map.mapType = MKMapTypeSatellite
+      @map.mapType = MKMapTypeHybrid
       @map.showsUserLocation = true
       @map.setRegion(MKCoordinateRegionMake(CLLocationCoordinate2D.new(rowDescriptor.value.latitude, rowDescriptor.value.longitude), MKCoordinateSpanMake(0.5, 0.5)), animated:true)
       self.view.addSubview(@map)  
@@ -56,6 +56,20 @@ class MapController < ProMotion::XLFormViewController
     if newState == MKAnnotationViewDragStateEnding
       rowDescriptor.value = CLLocationCoordinate2DMake(view.annotation.coordinate.latitude,view.annotation.coordinate.longitude)
       # self.title = sprintf("%0.4f, %0.4f", view.annotation.coordinate.latitude,view.annotation.coordinate.longitude)
+    end
+  end
+  
+  def mapView(map_view, regionWillChangeAnimated:animated)
+    if @annotation
+      @annotation.coordinate = @map.centerCoordinate
+      rowDescriptor.value = CLLocationCoordinate2DMake(@annotation.coordinate.latitude,@annotation.coordinate.longitude)
+    end
+  end
+  
+  def mapView(map_view, regionDidChangeAnimated:animated)
+    if @annotation
+      @annotation.coordinate = @map.centerCoordinate
+      rowDescriptor.value = CLLocationCoordinate2DMake(@annotation.coordinate.latitude,@annotation.coordinate.longitude)
     end
   end
 end

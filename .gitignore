@@ -15,4 +15,6 @@ nbproject
 .sass-cache
 .idea
 .dat*.*
+build-log
 provisioning
+vendor

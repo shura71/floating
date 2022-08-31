@@ -90,7 +90,9 @@
 "TOTAL WEIGHT, KG" = "ЗАГАЛЬНА ВАГА, КГ";
 "DURATION, HOURS" = "ТРИВАЛІСТЬ, ГОДИН";
 "BY PHASE OF THE MOON" = "ЗА ФАЗАМИ МIСЯЦЯ";
+"BY WEATHER" = "ПО ПОГОДI";
 "The statistics take into account all your records" = "У статистиці враховуються всі Ваші записи";
 "Mark trophies in fishing record" = "Відзначте трофеї в запису про риболовлю";
 "YOUR FISHING" = "ВАШІ РИБОЛОВЛІ";
 "Weather data loading" = "Завантаження метеоданих";
+"CHARTS"="ГРАФIKИ";

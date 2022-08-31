@@ -1,7 +1,7 @@
 class HomeScreen < ProMotion::DataTableScreen
   title I18n.t("Fishing activities")
   
-  nav_bar_button :right, system_item: :add, style: :plain, action: :add_new_record, tint_color: UIColor.blackColor
+  nav_bar_button :right, system_item: :add, style: :plain, action: :add_new_record, tint_color: UIColor.labelColor
   
   model Fishing, scope: :sort_date
   

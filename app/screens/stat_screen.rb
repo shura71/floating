@@ -21,13 +21,7 @@ class StatScreen < PM::GroupedTableScreen
          { properties: { ftitle: I18n.t('TOTAL FISHING'), fsubtitle: Fishing.all.size.to_s }, cell_class: FishingShowCell },
          { properties: { ftitle: I18n.t('NUMBER OF TAILS, PCS'), fsubtitle: Fishing.sum(:fishAmount).to_s }, cell_class: FishingShowCell },
          { properties: { ftitle: I18n.t('TOTAL WEIGHT, KG'), fsubtitle: Fishing.sum(:fishWeight).round(2).to_s }, cell_class: FishingShowCell },
-         { properties: { ftitle: I18n.t('DURATION, HOURS'), fsubtitle: Fishing.sum(:duration).to_s }, cell_class: FishingShowCell },
-         { properties: 
-           { 
-             ftitle: I18n.t('BY PHASE OF THE MOON'),
-             records: Fishing.all 
-           }, height: 300, cell_class: FishingPieChartCell 
-         }
+         { properties: { ftitle: I18n.t('DURATION, HOURS'), fsubtitle: Fishing.sum(:duration).to_s }, cell_class: FishingShowCell }
        ],
        footer: I18n.t('The statistics take into account all your records'),
       },
@@ -40,14 +34,35 @@ class StatScreen < PM::GroupedTableScreen
              ftitle: "#{record.fish}, #{record.fishWeight.round(2)} кг",
              fsubtitle: "#{record.place}, #{record.region}"
            },
-           image: { image: record.cropped_cover, radius: 10 },
+           image: { 
+             image: record.cropped_cover, 
+             radius: 10,
+             size: 40 
+           },
            accessory_type: UITableViewCellAccessoryDisclosureIndicator,
            action: :favorite_clicked,
            arguments: { id: record.id },
            cell_class: FishingFavoriteCell
          } 
        end
-      } 
+      }, 
+      { 
+       title: I18n.t('CHARTS'),
+       cells: [
+         { properties: 
+           { 
+             ftitle: I18n.t('BY PHASE OF THE MOON'),
+             records: Fishing.all 
+           }, height: 300, cell_class: FishingPieChartCell 
+         },
+         { properties: 
+           { 
+             ftitle: I18n.t('BY WEATHER'),
+             records: Fishing.all 
+           }, height: 300, cell_class: FishingPieChartCell2 
+         }
+       ]
+      }
     ]
   end
   

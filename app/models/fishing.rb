@@ -62,7 +62,11 @@ class Fishing < CDQManagedObject
     db.open
     results = db.executeQuery("SELECT * FROM ZNOTE")
     while results.next do 
-      time = Time.at(results.stringForColumn("ZDATE").to_i + 946731600) + 1.year + 5.hours
+      time = Time.at(results.stringForColumn("ZDATE").to_i + 946731600) + 21.year + 5.hours
+      timestr = results.stringForColumn("ZDATE")
+      if timestr =~ /^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/
+        time = Time.new($1,$2,$3,$4,$5)
+      end
       Fishing.create(
         id: results.stringForColumn("Z_PK").to_i,
         fishingDate: time, 
@@ -81,7 +85,7 @@ class Fishing < CDQManagedObject
         moonPhase: m.getphase(time),
         weather: results.stringForColumn("ZWEATHER").to_i,
         cover: results.dataForColumn("ZCOVERIMAGE"),
-        images: results.dataForColumn("ZIMAGESARRAY")
+        images: results.dataForColumn("ZIMAGESARRAY").nil? ? NSKeyedArchiver.archivedDataWithRootObject([ results.dataForColumn("ZCOVERIMAGE") ]) : results.dataForColumn("ZIMAGESARRAY")
       )
     end
     cdq.save
@@ -112,7 +116,8 @@ class Fishing < CDQManagedObject
     {
       image: {
         image: cropped_cover,
-        radius: 10
+        radius: 10,
+        size: 74
       },
       height: 80,
       cell_class: FishingCell,

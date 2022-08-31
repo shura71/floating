@@ -1,8 +1,8 @@
 class ShowScreen < PM::GroupedTableScreen
   def on_init
     set_nav_bar_buttons :right, [
-      {system_item: :edit, style: :plain, action: :edit_record, tint_color: UIColor.blackColor}, 
-      {system_item: :action, style: :plain, action: :share_record, tint_color: UIColor.blackColor}
+      {system_item: :edit, style: :plain, action: :edit_record, tint_color: UIColor.labelColor}, 
+      {system_item: :action, style: :plain, action: :share_record, tint_color: UIColor.labelColor}
     ]
   end
   

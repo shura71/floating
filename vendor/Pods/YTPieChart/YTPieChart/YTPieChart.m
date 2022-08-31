@@ -67,7 +67,7 @@
     self.selectSliceLineWidth = 2.0;
     _pieRadius = frame.size.width / 2;
     _pieCenter = CGPointMake(frame.size.width / 2, frame.size.height / 2);
-    self.titleFont = [UIFont systemFontOfSize:MAX((int)_pieRadius / 15, 4)];
+    self.titleFont = [UIFont boldSystemFontOfSize:MAX((int)_pieRadius / 10, 5)];
 }
 
 #pragma mark - create slice layer (with textLayer)

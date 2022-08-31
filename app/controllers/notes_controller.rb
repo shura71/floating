@@ -4,7 +4,7 @@ class NotesController < ProMotion::XLFormViewController
   def viewDidLoad    
     text_view = UITextView.new
     text_view.delegate = self
-    text_view.backgroundColor = UIColor.whiteColor
+    text_view.backgroundColor = UIColor.systemBackgroundColor
     text_view.frame = CGRectMake(
       0,
       0,

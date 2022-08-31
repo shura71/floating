@@ -3,7 +3,7 @@ class FishingShowMapCell < PM::TableViewCell
     # https://stackoverflow.com/questions/31354428/mkmapview-change-annotation-image
     @map = MKMapView.alloc.initWithFrame([[ 0, 0 ], [ 100 , 50 ]])
     @map.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight
-    @map.mapType = MKMapTypeSatellite
+    @map.mapType = MKMapTypeHybrid
     @map.setRegion(MKCoordinateRegionMake(CLLocationCoordinate2D.new(coordinates[0], coordinates[1]), MKCoordinateSpanMake(0.5, 0.5)), animated:true)
     @map.zoomEnabled = false
     @map.scrollEnabled = false

@@ -6,6 +6,8 @@ class BottomSheetController < UIViewController
     weather = Weather::CONDITIONS
     windowRect = app.screen.view.window.frame
     
+    self.view.backgroundColor = UIColor.systemBackgroundColor
+
     @slides = []
     images = NSKeyedUnarchiver.unarchiveObjectWithData(fishing.images)
     imageView = UIImageView.alloc.initWithImage(crop(images[0]))
@@ -19,46 +21,47 @@ class BottomSheetController < UIViewController
     
     label = UILabel.alloc.initWithFrame([[ 100, 6 ], [ windowRect.size.width - 105 , 30 ]])
     label.font = UIFont.fontWithName("Helvetica-Bold", size:18)
-    label.color = UIColor.blackColor 
+    label.color = UIColor.labelColor 
     label.baselineAdjustment = UIBaselineAdjustmentAlignCenters
     label.text = "#{fishing.fish}, #{fishing.fishWeight.round(2)} кг"
     self.view.addSubview(label) 
     
     label = UILabel.alloc.initWithFrame([[ 100, 30 ], [ windowRect.size.width - 105 , 30 ]])
     label.font = UIFont.fontWithName("Helvetica", size:15)
-    label.color = UIColor.blackColor 
+    label.color = UIColor.labelColor 
     label.text = "#{fishing.place}, #{fishing.region}"
     self.view.addSubview(label) 
     
-    imageView1 = UIImageView.alloc.initWithImage(UIImage.imageNamed("lure-50.png"))
+    imageView1 = UIImageView.alloc.initWithImage(UIImage.imageNamed(self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark ? "lure-50-white.png" : "lure-50.png"))
     imageView1.frame = [[15, 85], [24, 24]]
     self.view.addSubview(imageView1) 
     
     label = UILabel.alloc.initWithFrame([[ 15, 105 ], [ windowRect.size.width / 3 - 30 , 30 ]])
     label.font = UIFont.fontWithName("Helvetica", size:15)
-    label.color = UIColor.blackColor 
+    label.color = UIColor.labelColor 
     label.baselineAdjustment = UIBaselineAdjustmentAlignCenters
     label.text = fishing.bait
     self.view.addSubview(label) 
 
-    imageView2 = UIImageView.alloc.initWithImage(UIImage.imageNamed("fish-48.png"))
+    imageView2 = UIImageView.alloc.initWithImage(UIImage.imageNamed(self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark ? "fish-48-white.png" : "fish-48.png"))
     imageView2.frame = [[35 + windowRect.size.width / 3, 85], [24, 24]]
     self.view.addSubview(imageView2) 
     
     label = UILabel.alloc.initWithFrame([[ 35 + windowRect.size.width / 3, 105 ], [ windowRect.size.width / 3 - 30 , 30 ]])
     label.font = UIFont.fontWithName("Helvetica", size:15)
-    label.color = UIColor.blackColor 
+    label.color = UIColor.labelColor 
     label.baselineAdjustment = UIBaselineAdjustmentAlignCenters
     label.text = fishing.fishAmount.to_s
     self.view.addSubview(label) 
     
-    imageView3 = UIImageView.alloc.initWithImage(UIImage.imageNamed("weather-50.png"))
+    imageView3 = UIImageView.alloc.initWithImage(UIImage.imageNamed(self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark ? "weather-50-white.png" : "weather-50.png"))
     imageView3.frame = [[windowRect.size.width / 3 * 2, 85], [24, 24]]
+    label.tintColor = UIColor.labelColor 
     self.view.addSubview(imageView3) 
     
     label = UILabel.alloc.initWithFrame([[ windowRect.size.width / 3 * 2, 105 ], [ windowRect.size.width / 3 , 30 ]])
     label.font = UIFont.fontWithName("Helvetica", size:15)
-    label.color = UIColor.blackColor 
+    label.color = UIColor.labelColor 
     label.baselineAdjustment = UIBaselineAdjustmentAlignCenters
     label.text = "#{weather[fishing.weather]} #{fishing.temperature > 0 ? '+' : ''}#{fishing.temperature} °С"
     self.view.addSubview(label) 

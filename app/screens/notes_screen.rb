@@ -7,11 +7,11 @@ class NotesScreen < PM::Screen
 
   def set_up_view
     set_attributes self.view, {
-      background_color: UIColor.whiteColor
+      background_color: UIColor.systemBackgroundColor
     }
     
     @place_view ||= begin 
-      label = add UILabel.alloc.initWithFrame([[ 10, 70 ], [ self.view.width - 20, self.view.height - 20  ]])
+      label = add UILabel.alloc.initWithFrame([[ 10, 80 ], [ self.view.width - 20, self.view.height - 20  ]])
       label.font = UIFont.fontWithName("Helvetica", size:15)
       label.numberOfLines = 0
       label

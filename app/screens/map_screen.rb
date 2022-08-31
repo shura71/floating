@@ -6,7 +6,7 @@ class MapScreen < PM::MapScreen
   end
   
   def on_appear
-    map.mapType = MKMapTypeSatellite
+    map.mapType = MKMapTypeHybrid
     map.zoomEnabled = true
   end
 
