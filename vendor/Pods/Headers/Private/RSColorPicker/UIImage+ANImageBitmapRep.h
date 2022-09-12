@@ -1,1 +1,0 @@
-../../../RSColorPicker/RSColorPicker/ColorPickerClasses/ANImageBitmapRep/Compatibility/UIImage+ANImageBitmapRep.h
