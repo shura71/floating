@@ -1,6 +1,6 @@
 # Poplavok (Floating)
 
-This RubyMotion project is open source under the MIT license (see *License* file).
+iOS Angler’s Journal app. This RubyMotion project is open source under the MIT license (see *License* file).
 
 ## Getting it
 
