@@ -1,5 +1,6 @@
 class MapScreen < PM::MapScreen
   title I18n.t("Map")
+  nav_bar (Device.ios_version.to_i < 15) 
   
   def on_init
     self.tabBarItem = UITabBarItem.alloc.initWithTitle(I18n.t("Map"), image:UIImage.imageNamed('world-24.png'), tag:3)
@@ -8,6 +9,7 @@ class MapScreen < PM::MapScreen
   def on_appear
     map.mapType = MKMapTypeHybrid
     map.zoomEnabled = true
+    show_user_location
   end
 
   def on_load

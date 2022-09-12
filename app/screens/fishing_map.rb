@@ -1,4 +1,5 @@
 class FishingMap < PM::MapScreen
+  
   def annotation_data
     [
       {

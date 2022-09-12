@@ -6,6 +6,7 @@ gem 'cdq', git: 'git://github.com/infinitered/cdq.git'
 #gem 'motion-sqlite3'
 
 gem "motion-cocoapods"
+gem 'bubble-wrap'
 gem "redpotion", path: '/Users/shura/Projects/GitHub/redpotion'
 gem "motion-yaml" # Version 1.5 breaks CDQ
 gem "afmotion" # Networking

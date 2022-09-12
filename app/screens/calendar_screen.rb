@@ -1,6 +1,5 @@
 class CalendarScreen < PM::Screen
   title I18n.t("Calendar")
-  
   nav_bar_button :right, system_item: :add, style: :plain, action: :add_new_record, tint_color: UIColor.labelColor
   
   def on_init
@@ -21,7 +20,7 @@ class CalendarScreen < PM::Screen
     @calendar.reloadData
   end
   
-  def on_load
+  def on_load      
       @dates = {}
       Fishing.all.each do |fishing|
         key = fishing.fishingDate.strftime("%Y-%m-%d")

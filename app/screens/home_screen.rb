@@ -6,7 +6,7 @@ class HomeScreen < ProMotion::DataTableScreen
   model Fishing, scope: :sort_date
   
   def on_init
-    self.tabBarItem = UITabBarItem.alloc.initWithTitle(I18n.t("Fishing activities"), image:UIImage.imageNamed('float-24.png'), tag:1)
+    self.tabBarItem = UITabBarItem.alloc.initWithTitle(I18n.t("Fishing activities"), image:UIImage.imageNamed('list-24.png'), tag:1)
   end
   
   def fishingChanged(notification)
@@ -120,5 +120,5 @@ class HomeScreen < ProMotion::DataTableScreen
     Fishing.where(:id).eq(cell[:arguments][:record].id).first.destroy
     cdq.save
     false
-  end
+  end  
 end

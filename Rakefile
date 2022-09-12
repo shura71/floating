@@ -28,7 +28,7 @@ Motion::Project::App.setup do |app|
   app.identifier = 'placesevents.info.Poplavok'
 
   # version for your app
-  app.version = '1.5'
+  app.version = '1.7.1'
 
   # ===========================================================================================
   # 3. Set your deployment target (it's recommended that you at least target 10.0 and above).
@@ -64,6 +64,7 @@ Motion::Project::App.setup do |app|
   app.info_plist['NSDocumentsFolderUsageDescription'] = 'I need it'
   
   app.pods do
+    # use_frameworks!
     pod 'SDWebImage'
     pod 'STPopup'
     pod 'KSPhotoBrowser'
@@ -93,7 +94,7 @@ Motion::Project::App.setup do |app|
   #
   #    Download the profile and set the path to the download location below.
   # ===========================================================================================
-  app.provisioning_profile = '/Users/shura/Library/MobileDevice/Provisioning Profiles/ab95db45-2c49-48fd-8540-90d5a6420420.mobileprovision'
+  app.provisioning_profile = '/Users/shura/Library/MobileDevice/Provisioning Profiles/54fc0f88-e4ef-411f-9fe3-f5139ee9db76.mobileprovision'
 
   # ===========================================================================================
   # 8. Similar to Step 7. Production, create a production certificate at:
@@ -123,7 +124,7 @@ Motion::Project::App.setup do |app|
   #     platform: :ios,
   #     type: :development,
   #     free: true)
-  # end
+  # end  
 end
 
 def define_icon_defaults!(app)
