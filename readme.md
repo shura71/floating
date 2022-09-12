@@ -22,7 +22,7 @@ Clone this repos and run it in the siumlator (or on a device if you are a regist
 
 ## Screenshots
 
-![](https://user-images.githubusercontent.com/1247239/189709956-4844f52f-345e-4970-9fa5-1f9bb21c95b7.png))&nbsp;
+![](https://user-images.githubusercontent.com/1247239/189709956-4844f52f-345e-4970-9fa5-1f9bb21c95b7.png)&nbsp;
 ![](https://user-images.githubusercontent.com/1247239/189710021-2a29f3b1-66ed-4767-82d5-7ad394c92131.png)&nbsp;
 ![](https://user-images.githubusercontent.com/1247239/189710083-858ab4f2-3edb-49f1-b7e8-40b464d4fd7c.png)&nbsp;
 ![](https://user-images.githubusercontent.com/1247239/189710161-4b82a201-2239-43bc-8e07-587bf5a6df20.png)
